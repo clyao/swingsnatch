@@ -15,14 +15,19 @@ import javax.swing.JRadioButtonMenuItem;
 
 import java.awt.CardLayout;
 import java.awt.Component;
+
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
+
 import java.awt.Dimension;
-import javax.swing.JLabel;
+
+import chrriis.dj.nativeswing.swtimpl.components.JWebBrowser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author clyao
@@ -61,7 +66,7 @@ public class SnatchMainWindow extends JFrame {
 	private JButton webconfigbtn;
 	private JButton webmodulebtn;
 	private JPanel snatchpanel;
-	private JPanel settingpanel;
+	private JPanel browserpanel;
 	private JButton starttaskbtn;
 	private JButton stoptaskbtn;
 	private JButton scheduletaskbtn;
@@ -72,8 +77,10 @@ public class SnatchMainWindow extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private ImagebgJPanel welcomepanel;
-	private JLabel lblNewLabel;
 	private CardLayout cardLayout;
+	private JWebBrowser webBrowser;
+	private JButton browserbtn;
+	private JButton snatchbtn;
 
 	
 	public SnatchMainWindow() {
@@ -209,6 +216,32 @@ public class SnatchMainWindow extends JFrame {
 		toolBar.add(webmodulebtn);
 		toolBar.addSeparator();
 		
+		browserbtn = new JButton("内置浏览器");
+		browserbtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(contentpanel, "browserpanel");
+			}
+		});
+		browserbtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		browserbtn.setVerticalTextPosition(JButton.BOTTOM);
+		browserbtn.setHorizontalTextPosition(JButton.CENTER);
+		browserbtn.setIcon(new ImageIcon(getClass().getResource("/images/snatch/browser.png")));
+		toolBar.add(browserbtn);
+		
+		snatchbtn = new JButton("采集面板");
+		snatchbtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cardLayout.show(contentpanel, "snatchpanel");
+			}
+		});
+		snatchbtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+		snatchbtn.setVerticalTextPosition(JButton.BOTTOM);
+		snatchbtn.setHorizontalTextPosition(JButton.CENTER);
+		snatchbtn.setIcon(new ImageIcon(getClass().getResource("/images/snatch/snatch.png")));
+		toolBar.add(snatchbtn);
+		
 		contentpanel = new JPanel();
 		cardLayout = new CardLayout(0, 0);
 		contentpanel.setBorder(null);
@@ -255,10 +288,17 @@ public class SnatchMainWindow extends JFrame {
 		));
 		scrollPane.setViewportView(table);
 		
-		settingpanel = new JPanel();
-		contentpanel.add(settingpanel, "settingpanel");
+		browserpanel = new JPanel();
+		contentpanel.add(browserpanel, "browserpanel");
+		browserpanel.setLayout(new BorderLayout(0, 0));
 		
-		lblNewLabel = new JLabel("New label");
-		settingpanel.add(lblNewLabel);
+		webBrowser = new JWebBrowser();
+		browserpanel.add(webBrowser, BorderLayout.CENTER);
+		webBrowser.setBarsVisible(false);
+		webBrowser.setMenuBarVisible(false);
+		webBrowser.setLocationBarVisible(true);
+		webBrowser.setButtonBarVisible(false);
+		webBrowser.setStatusBarVisible(false);
+		webBrowser.navigate("http://www.baidu.com");
 	}
 }

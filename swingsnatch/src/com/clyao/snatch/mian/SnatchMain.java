@@ -7,6 +7,8 @@ import javax.swing.plaf.InsetsUIResource;
 
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
+import chrriis.dj.nativeswing.swtimpl.NativeInterface;
+
 import com.clyao.snatch.views.SnatchLoginWindow;
 
 /**
@@ -20,11 +22,12 @@ public class SnatchMain {
 	public static SnatchLoginWindow frame;
 	
 	public static void main(String[] args) {
+		NativeInterface.open();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					System.setProperty("sun.java2d.noddraw", "true");
-					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.translucencySmallShadow;
+					BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.FrameBorderStyle.generalNoTranslucencyShadow;
 					BeautyEyeLNFHelper.launchBeautyEyeLNF();
 					UIManager.put("RootPane.setupButtonVisible", false);
 					UIManager.put("TabbedPane.tabAreaInsets", new InsetsUIResource(0,0,0,0));
@@ -35,6 +38,7 @@ public class SnatchMain {
 				}
 			}
 		});
+		NativeInterface.runEventPump();
 	}
 	
 }

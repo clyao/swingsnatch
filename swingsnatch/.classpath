@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/DJNativeSwing-SWT.jar"/>
 	<classpathentry kind="lib" path="lib/DJNativeSwing.jar"/>
 	<classpathentry kind="lib" path="lib/swt-4.3.1-win32-win32-x86.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.14.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
